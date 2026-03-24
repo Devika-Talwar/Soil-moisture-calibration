@@ -1,5 +1,5 @@
 library(readxl)
-df <- read_excel("pots5ldata.xlsx")
+df <- read_excel("datafile.xlsx")
 str(df)
 model <- lm(Moisture_meter_readings ~ RWC, data = df)
 summary(model)
@@ -51,19 +51,19 @@ ggplot(df, aes(x = RWC_percent, y = Moisture_meter_readings)) +
 
 ggplot(data = df, aes(x = RWC_percent, y = Moisture_meter_readings)) +
   
-  # Data points
+
   geom_point(size = 3, color = "#2C7BB6", alpha = 0.8) +
   
-  # Regression line + CI
+
   geom_smooth(method = "lm", se = TRUE,
               color = "#D7191C", linewidth = 1) +
   
-  # Vertical lines at 30% and 60%
+ 
   geom_vline(xintercept = c(30, 60),
              linetype = "dashed",
              color = "grey40") +
   
-  # Predicted points
+
   geom_point(data = pred_points,
              aes(x = RWC_percent, y = Moisture_meter_readings),
              size = 4,
@@ -71,14 +71,14 @@ ggplot(data = df, aes(x = RWC_percent, y = Moisture_meter_readings)) +
              fill = "yellow",
              color = "black") +
   
-  # Labels for predicted points
+
   geom_text(data = pred_points,
             aes(x = RWC_percent, y = Moisture_meter_readings,
                 label = round(Moisture_meter_readings, 1)),
             vjust = -1.2,
             size = 4.5) +
   
-  # Equation + R²
+ 
   annotate(
     "text",
     x = min(df$RWC_percent) + 0.02,
